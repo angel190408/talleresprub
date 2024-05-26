@@ -1,0 +1,40 @@
+{% extends "../base.html" %}
+
+{% block title %}
+Inscripción alumno
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h3 class="card-title pb-3">Inscripción de alumno</h4>
+        <form action="/inscribirAlumno/" method="POST">{% csrf_token %}
+            <div class="form-group py-2" id="div-numero-control">
+                <label for="numeroControl" class="form-label">Numero de control:</label>
+                <input type="text" id="numeroControl" name="numeroControl" class="form-control" minlength="8"
+                    maxlength="12">
+            </div>
+            <div class="form-group py-2" id="div-nombre-completo">
+                <label for="nombreCompleto" class="form-label">Nombre completo:</label>
+                <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control"
+                    maxlength="50">
+            </div>
+
+            <div class="form-group py-2">
+                <label for="idTaller" class="form-label">Taller:</label>
+                <select id="idTaller" name="idTaller" class="form-select py-2" aria-label="seleccionTaller">
+                    <option value="">Seleccionar</option>
+                    {% for t in talleres %}
+                        <option value="{{t.pk}}" {% if seleccionTaller != None and seleccionTaller.pk == t.pk %}selected = "selected" {% endif %}>
+                            {{t.clave}} | {{t.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group py-4">
+                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

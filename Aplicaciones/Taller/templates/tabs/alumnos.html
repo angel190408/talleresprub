@@ -1,0 +1,50 @@
+{% extends "../base.html" %}
+
+{% block title %}
+Alumnos
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <h1>Alumnos y talleres</h1>
+    <div class="py-2">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Operacion exitosa.</strong> {{ message }}
+                    <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Núm. Control</th>
+                    <th>Alumno</th>
+                    <th>Clave</th>
+                    <th>Taller</th>
+                    <th>Fecha inscripción</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in alumnos %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{a.alumno.numeroControl}}</td>
+                    <td>{{a.alumno.nombreCompleto}}</td>
+                    <td>{{a.taller.clave}}</td>
+                    <td>{{a.taller.nombre}}</td>
+                    <td>{{a.fechaInscripcion}}</td>
+                    <td>
+                        <a href="/generarDocumento/{{a.pk}}" class="btn btn-success">Documento</a> 
+                        <a href="/eliminarAlumno/{{a.pk}}" class="btn btn-danger btnEliminar">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
